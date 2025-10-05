@@ -24,7 +24,6 @@
                         'dark-text': '#374151',
                     },
                     fontFamily: {
-                        // Using Poppins globally for a cool, modern look
                         sans: ['Poppins', 'sans-serif'],
                     },
                 }
@@ -32,55 +31,87 @@
         }
     </script>
     <style>
-        /* Apply smooth scrolling and white background as requested */
+        /* Apply smooth scrolling and white background */
         html {
             scroll-behavior: smooth;
-            background-color: #ffffff; /* Explicitly set white background */
+            background-color: #ffffff;
         }
         
-        /* Custom styles for bright, contrasting section headers 
-           These now inherit the new Poppins font. */
+        /* Custom styles for bright, contrasting section headers */
         .section-header {
-            background-color: #facc15; /* Bright Yellow */
-            color: #1f2937; /* Dark Gray for high contrast */
+            background-color: #facc15;
+            color: #1f2937;
             padding: 1.5rem 0;
             margin-bottom: 2.5rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         /* Clean button style for product cards */
-        .add-to-cart-btn {
+        .action-btn {
             transition: all 0.2s ease;
         }
-        .add-to-cart-btn:hover {
+        .action-btn:hover {
             box-shadow: 0 5px 15px rgba(249, 115, 22, 0.4);
             transform: translateY(-1px);
         }
+
+        /* Style for the floating chat button */
+        #chat-support {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        /* Style for dietary tags */
+        .dietary-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 4px;
+            margin-bottom: 4px;
+        }
+        .tag-gluten-free { background-color: #d1fae5; color: #065f46; } /* Light green */
+        .tag-vegan { background-color: #e0f2fe; color: #1e40af; } /* Light blue */
+        .tag-sweet { background-color: #fef3c7; color: #92400e; } /* Light yellow */
+        .tag-spicy { background-color: #fee2e2; color: #991b1b; } /* Light red */
     </style>
 </head>
 <body class="text-dark-text min-h-screen flex flex-col">
 
-    <!-- Header / Navigation Bar - Navigation tabs visible at right hand top corner -->
+    <!-- Header / Navigation Bar -->
     <header class="sticky top-0 z-50 bg-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             
-            <!-- Logo/Title - Increased visibility (HBB -Eat Guiltfree) -->
+            <!-- Logo/Title -->
             <a href="#home" class="text-4xl sm:text-5xl font-extrabold text-brand-green tracking-tighter">
                 HBB <span class="text-brand-orange text-xl font-medium tracking-widest">- Eat Guiltfree</span>
             </a>
 
-            <!-- Desktop Navigation Links (Aligned right due to justify-between) -->
+            <!-- Desktop Navigation Links & Action Icons -->
             <nav class="hidden md:flex space-x-8 items-center">
-                <a href="#home" class="text-lg text-gray-700 hover:text-brand-green transition duration-300 font-semibold">Home</a>
-                <a href="#shop" class="text-lg text-gray-700 hover:text-brand-green transition duration-300 font-semibold">Shop</a>
-                <a href="#cart" class="text-lg text-gray-700 hover:text-brand-green transition duration-300 font-semibold flex items-center">
-                    <i data-lucide="shopping-cart" class="w-5 h-5 mr-1"></i> Cart
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#shop" class="nav-link">Shop</a>
+                <a href="#reviews" class="nav-link">Reviews</a>
+                <a href="#about" class="nav-link">About Us</a>
+                <a href="#contact" class="nav-link">Contact Us</a>
+
+                <!-- Cart Icon -->
+                <a href="#cart" class="nav-link flex items-center p-2 rounded-full hover:bg-gray-100 transition">
+                    <i data-lucide="shopping-cart" class="w-6 h-6 text-brand-orange"></i>
+                    <span id="cart-count" class="ml-1 text-sm font-bold text-brand-orange">(0)</span>
                 </a>
-                <a href="#about" class="text-lg text-gray-700 hover:text-brand-green transition duration-300 font-semibold">About Us</a>
-                <a href="#contact" class="text-lg text-gray-700 hover:text-brand-green transition duration-300 font-semibold">Contact Us</a>
+                
+                <!-- Wishlist Icon -->
+                <a href="#cart" onclick="showWishlistTab()" class="nav-link flex items-center p-2 rounded-full hover:bg-gray-100 transition">
+                    <i data-lucide="heart" class="w-6 h-6 text-pink-500"></i>
+                </a>
             </nav>
             
-            <!-- Mobile Menu Button (Hamburger) - Not functional in this static template -->
+            <!-- Mobile Menu Button (Placeholder) -->
             <button class="md:hidden text-gray-600 hover:text-brand-green focus:outline-none">
                 <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
@@ -90,24 +121,14 @@
     <!-- Main Content Area -->
     <main class="flex-grow">
         
-        <!-- Hero Section - Home (min-h-screen applied with vertical centering) -->
+        <!-- Hero Section - Home (Full Height) -->
         <section id="home" class="bg-brand-green text-white py-20 md:py-32 relative overflow-hidden min-h-screen flex flex-col items-center justify-center">
             
-            <!-- Millet Corner Icon 1 (Top Left) -->
-            <img src="https://placehold.co/80x80/10b981/ffffff?text=Millet" alt="Millet Grain Icon" 
-                class="absolute top-0 left-0 opacity-20 hidden md:block rounded-full">
-            
-            <!-- Millet Corner Icon 2 (Top Right) -->
-            <img src="https://placehold.co/80x80/10b981/ffffff?text=Millet" alt="Millet Grain Icon" 
-                class="absolute top-0 right-0 opacity-20 hidden md:block rounded-full">
-
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-                <!-- Updated Primary Heading -->
                 <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight">
                     Eat Without Second Thoughts.
                 </h1>
                 
-                <!-- Updated Taglines (Neatly spaced and well spaced) -->
                 <div class="space-y-3 mb-10 opacity-95 max-w-5xl mx-auto">
                     <p class="text-2xl sm:text-3xl font-medium">Healthy is now tasty!</p>
                     <p class="text-xl sm:text-2xl font-light font-sans tracking-wide">
@@ -115,135 +136,171 @@
                     </p>
                 </div>
 
-                <a href="#shop" class="inline-block px-10 py-4 bg-brand-orange text-white text-xl font-bold rounded-xl shadow-2xl hover:bg-opacity-90 transition duration-300 transform hover:scale-105 add-to-cart-btn">
+                <a href="#shop" class="action-btn inline-block px-10 py-4 bg-brand-orange text-white text-xl font-bold rounded-xl shadow-2xl hover:bg-opacity-90 transition duration-300 transform hover:scale-105">
                     Explore Our Millet Snacks
                 </a>
             </div>
         </section>
 
-        <!-- Shop Section (min-h-screen applied with vertical centering) -->
-        <section id="shop" class="py-16 md:py-24 min-h-screen flex flex-col justify-center">
+        <!-- Shop Section (Full Height with scrollable content) -->
+        <section id="shop" class="py-16 md:py-16 min-h-screen flex flex-col justify-start">
             <header class="section-header text-center">
                 <h2 class="text-3xl sm:text-4xl font-extrabold uppercase">
                     Our Guilt-Free Product Range
                 </h2>
             </header>
             
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-grow flex flex-col">
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Search & Filter Controls -->
+                <div class="mb-8 p-4 bg-gray-100 rounded-xl shadow-inner flex flex-col md:flex-row gap-4 items-center sticky top-20 z-40">
+                    <input type="text" id="search-input" placeholder="Search by name..." 
+                           class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-brand-green focus:border-brand-green"
+                           oninput="applyFilters()">
                     
-                    <!-- Product Card 1 -->
-                    <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 text-center flex flex-col items-center hover:shadow-2xl transition duration-300">
-                        <img src="https://placehold.co/400x300/e0f2f1/064e3b?text=Millet+Cookies" alt="Millet Cookies" class="rounded-lg mb-4 w-full h-auto object-cover">
-                        <h3 class="text-2xl font-bold mb-2 text-dark-text">Ragi Chocolate Cookies</h3>
-                        <p class="text-sm text-gray-500 mb-4 font-medium">150g</p>
-                        <p class="text-gray-600 mb-4 flex-grow">Crunchy, delicious cookies made with nutrient-rich Ragi and real cocoa. A perfect guilt-free treat.</p>
-                        <div class="flex justify-between items-center w-full mt-auto pt-2">
-                            <span class="text-3xl font-extrabold text-brand-green">₹199</span>
-                            <button class="add-to-cart-btn px-6 py-2 bg-brand-orange text-white font-bold rounded-lg shadow-md hover:bg-brand-orange/90">
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
+                    <select id="flavor-filter" onchange="applyFilters()" class="p-3 border border-gray-300 rounded-lg focus:ring-brand-green focus:border-brand-green w-full md:w-auto">
+                        <option value="all">All Flavors</option>
+                        <option value="sweet">Sweet</option>
+                        <option value="spicy">Spicy</option>
+                        <option value="cocoa">Cocoa</option>
+                        <option value="nutty">Nutty</option>
+                    </select>
 
-                    <!-- Product Card 2 -->
-                    <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 text-center flex flex-col items-center hover:shadow-2xl transition duration-300">
-                        <img src="https://placehold.co/400x300/f0f9ff/0c4a6e?text=Jowar+Puffs" alt="Jowar Puffs" class="rounded-lg mb-4 w-full h-auto object-cover">
-                        <h3 class="text-2xl font-bold mb-2 text-dark-text">Spicy Jowar Puffs</h3>
-                        <p class="text-sm text-gray-500 mb-4 font-medium">100g</p>
-                        <p class="text-gray-600 mb-4 flex-grow">Air-popped Jowar (Sorghum) snacks seasoned with natural spices. High in fiber, low in calories.</p>
-                        <div class="flex justify-between items-center w-full mt-auto pt-2">
-                            <span class="text-3xl font-extrabold text-brand-green">₹120</span>
-                            <button class="add-to-cart-btn px-6 py-2 bg-brand-orange text-white font-bold rounded-lg shadow-md hover:bg-brand-orange/90">
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Product Card 3 -->
-                    <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 text-center flex flex-col items-center hover:shadow-2xl transition duration-300">
-                        <img src="https://placehold.co/400x300/fef3c7/92400e?text=Bajra+Mix" alt="Bajra Mix" class="rounded-lg mb-4 w-full h-auto object-cover">
-                        <h3 class="text-2xl font-bold mb-2 text-dark-text">Bajra Trail Mix</h3>
-                        <p class="text-sm text-gray-500 mb-4 font-medium">200g</p>
-                        <p class="text-gray-600 mb-4 flex-grow">A perfect blend of crispy Bajra (Pearl Millet) puffs, nuts, and seeds. Energy-boosting and nourishing.</p>
-                        <div class="flex justify-between items-center w-full mt-auto pt-2">
-                            <span class="text-3xl font-extrabold text-brand-green">₹249</span>
-                            <button class="add-to-cart-btn px-6 py-2 bg-brand-orange text-white font-bold rounded-lg shadow-md hover:bg-brand-orange/90">
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
+                    <select id="dietary-filter" onchange="applyFilters()" class="p-3 border border-gray-300 rounded-lg focus:ring-brand-green focus:border-brand-green w-full md:w-auto">
+                        <option value="all">All Dietary Needs</option>
+                        <option value="gluten-free">Gluten-Free</option>
+                        <option value="vegan">Vegan</option>
+                    </select>
 
-                    <!-- Product Card 4 -->
-                    <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 text-center flex flex-col items-center hover:shadow-2xl transition duration-300">
-                        <img src="https://placehold.co/400x300/ffe4e6/be123c?text=Quinoa+Bar" alt="Quinoa Bar" class="rounded-lg mb-4 w-full h-auto object-cover">
-                        <h3 class="text-2xl font-bold mb-2 text-dark-text">Ancient Grain Energy Bar</h3>
-                        <p class="text-sm text-gray-500 mb-4 font-medium">50g (Pack of 6)</p>
-                        <p class="text-gray-600 mb-4 flex-grow">Made with Quinoa and natural fruit pulp. The ideal pre or post-workout snack.</p>
-                        <div class="flex justify-between items-center w-full mt-auto pt-2">
-                            <span class="text-3xl font-extrabold text-brand-green">₹350</span>
-                            <button class="add-to-cart-btn px-6 py-2 bg-brand-orange text-white font-bold rounded-lg shadow-md hover:bg-brand-orange/90">
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Product Card 5 -->
-                    <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 text-center flex flex-col items-center hover:shadow-2xl transition duration-300">
-                        <img src="https://placehold.co/400x300/dbeafe/1e40af?text=Multi-Millet+Noodles" alt="Multi-Millet Noodles" class="rounded-lg mb-4 w-full h-auto object-cover">
-                        <h3 class="text-2xl font-bold mb-2 text-dark-text">Multi-Millet Instant Noodles</h3>
-                        <p class="text-sm text-gray-500 mb-4 font-medium">250g</p>
-                        <p class="text-gray-600 mb-4 flex-grow">Quick and healthy alternative to refined flour noodles. Rich in protein and minerals.</p>
-                        <div class="flex justify-between items-center w-full mt-auto pt-2">
-                            <span class="text-3xl font-extrabold text-brand-green">₹150</span>
-                            <button class="add-to-cart-btn px-6 py-2 bg-brand-orange text-white font-bold rounded-lg shadow-md hover:bg-brand-orange/90">
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 6 -->
-                    <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 text-center flex flex-col items-center hover:shadow-2xl transition duration-300">
-                        <img src="https://placehold.co/400x300/fee2e2/991b1b?text=Kodo+Muesli" alt="Kodo Muesli" class="rounded-lg mb-4 w-full h-auto object-cover">
-                        <h3 class="text-2xl font-bold mb-2 text-dark-text">Kodo Millet Muesli</h3>
-                        <p class="text-sm text-gray-500 mb-4 font-medium">300g</p>
-                        <p class="text-gray-600 mb-4 flex-grow">Perfect breakfast option with Kodo Millet flakes, dried fruits, and seeds. No artificial flavors.</p>
-                        <div class="flex justify-between items-center w-full mt-auto pt-2">
-                            <span class="text-3xl font-extrabold text-brand-green">₹299</span>
-                            <button class="add-to-cart-btn px-6 py-2 bg-brand-orange text-white font-bold rounded-lg shadow-md hover:bg-brand-orange/90">
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
-
+                    <button onclick="applyFilters()" class="action-btn px-6 py-3 bg-brand-green text-white font-bold rounded-lg shadow-md hover:bg-brand-green/90 w-full md:w-auto">
+                        <i data-lucide="filter" class="w-4 h-4 inline-block mr-1"></i> Filter
+                    </button>
+                </div>
+                
+                <!-- Product Grid (Scrollable if necessary) -->
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 pb-10">
+                    <!-- Product Cards will be rendered here by JavaScript -->
                 </div>
             </div>
         </section>
         
-        <!-- Cart Section (min-h-screen applied with vertical centering) -->
-        <section id="cart" class="py-16 md:py-24 bg-gray-50 min-h-screen flex flex-col justify-center">
-            <header class="section-header text-center">
+        <!-- Cart & Wishlist Section (Full Height with Tabs) -->
+        <section id="cart" class="py-16 md:py-24 bg-gray-50 min-h-screen flex flex-col justify-start items-center">
+            <header class="section-header text-center w-full">
                 <h2 class="text-3xl sm:text-4xl font-extrabold uppercase">
-                    Your Shopping Cart
+                    Your Saved Items
                 </h2>
             </header>
             
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
-                    <i data-lucide="shopping-cart" class="w-16 h-16 mx-auto text-brand-green mb-4"></i>
-                    <h3 class="text-2xl font-bold mb-3 text-dark-text">Cart is Empty!</h3>
-                    <p class="text-gray-600 mb-6">
-                        Start adding some delicious, guilt-free millet snacks to your order. We're excited for you to try them!
-                    </p>
-                    <a href="#shop" class="inline-block px-8 py-3 bg-brand-orange text-white font-bold rounded-lg hover:bg-brand-orange/90 transition duration-300">
-                        Continue Shopping
-                    </a>
+            <div class="max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 flex-grow pt-4">
+
+                <!-- Tabs for Cart and Wishlist -->
+                <div class="flex border-b border-gray-300 mb-6 sticky top-20 bg-gray-50 z-30">
+                    <button id="cart-tab-btn" onclick="switchTab('cart')" class="tab-btn p-4 text-xl font-semibold border-b-4 border-brand-orange text-brand-orange transition duration-300 mr-4">
+                        Shopping Cart
+                    </button>
+                    <button id="wishlist-tab-btn" onclick="switchTab('wishlist')" class="tab-btn p-4 text-xl font-semibold border-b-4 border-transparent text-gray-500 hover:text-brand-green transition duration-300">
+                        Wishlist
+                    </button>
+                </div>
+                
+                <!-- Cart Content -->
+                <div id="cart-content" class="tab-content">
+                    <div id="cart-items-container" class="space-y-4 mb-8">
+                        <!-- Cart items will be rendered here -->
+                    </div>
+                    
+                    <div id="cart-summary" class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 text-right">
+                        <p class="text-xl font-bold text-dark-text mb-4">Total: <span id="cart-total" class="text-brand-orange text-3xl">₹0</span></p>
+                        
+                        <!-- Payment Gateway Integration Placeholder -->
+                        <button onclick="checkoutHandler()" class="action-btn px-8 py-3 bg-brand-green text-white font-bold rounded-lg shadow-md hover:bg-brand-green/90 transition duration-300 text-lg w-full md:w-auto">
+                            Proceed to Secure Checkout <i data-lucide="lock" class="w-5 h-5 inline-block ml-2"></i>
+                        </button>
+                        <p class="text-sm text-gray-500 mt-2">
+                            <i data-lucide="shield-check" class="w-4 h-4 inline-block mr-1"></i> Payment Gateway Integration is simulated.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Wishlist Content -->
+                <div id="wishlist-content" class="tab-content hidden">
+                    <div id="wishlist-items-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Wishlist items will be rendered here -->
+                    </div>
+                    <div id="wishlist-empty-message" class="text-center p-10 hidden">
+                        <i data-lucide="heart" class="w-16 h-16 mx-auto text-pink-300 mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-3 text-dark-text">Your Wishlist is Empty!</h3>
+                        <p class="text-gray-600 mb-6">
+                            Tap the heart icon on any product to save it for later.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Customer Reviews & Ratings Section (New, Full Height) -->
+        <section id="reviews" class="py-16 md:py-24 min-h-screen flex flex-col justify-start bg-white">
+            <header class="section-header text-center">
+                <h2 class="text-3xl sm:text-4xl font-extrabold uppercase">
+                    Customer Reviews & Ratings
+                </h2>
+                <p class="text-xl font-medium mt-2 text-dark-text">Trusted by thousands of guilt-free snackers.</p>
+            </header>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Average Rating Display -->
+                <div class="text-center mb-10 p-6 bg-brand-green text-white rounded-xl shadow-2xl">
+                    <span class="text-5xl font-extrabold mr-2">4.8</span>
+                    <i data-lucide="star" class="w-6 h-6 inline-block fill-brand-yellow text-brand-yellow"></i>
+                    <span class="text-xl font-light">based on 5,320 ratings</span>
+                </div>
+
+                <!-- Reviews Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Review Card 1 -->
+                    <div class="p-6 bg-gray-50 rounded-2xl shadow-lg border border-gray-200">
+                        <div class="flex items-center mb-3">
+                            <i data-lucide="star" class="w-5 h-5 fill-brand-orange text-brand-orange"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-brand-orange text-brand-orange"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-brand-orange text-brand-orange"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-brand-orange text-brand-orange"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-brand-orange text-brand-orange"></i>
+                            <span class="ml-3 text-sm font-semibold text-dark-text">Fantastic!</span>
+                        </div>
+                        <p class="text-gray-700 italic mb-4">"The Ragi Cookies are a game-changer. Finally, a chocolate treat I don't regret! Highly recommend."</p>
+                        <p class="text-sm font-bold text-brand-green">- Priya M.</p>
+                        <p class="text-xs text-gray-500">Verified Buyer, New Delhi</p>
+                    </div>
+
+                    <!-- Review Card 2 -->
+                    <div class="p-6 bg-gray-50 rounded-2xl shadow-lg border border-gray-200">
+                        <div class="flex items-center mb-3">
+                            <i data-lucide="star" class="w-5 h-5 fill-brand-orange text-brand-orange"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-brand-orange text-brand-orange"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-brand-orange text-brand-orange"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-brand-orange text-brand-orange"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-gray-300"></i>
+                            <span class="ml-3 text-sm font-semibold text-dark-text">Great Healthy Snack</span>
+                        </div>
+                        <p class="text-gray-700 italic mb-4">"The Jowar Puffs are spicy and crunchy. Only drawback is they finish too quickly! Excellent quality."</p>
+                        <p class="text-sm font-bold text-brand-green">- Anil K.</p>
+                        <p class="text-xs text-gray-500">Verified Buyer, Mumbai</p>
+                    </div>
+                </div>
+                
+                <!-- Placeholder Button for submitting a review -->
+                <div class="text-center mt-10">
+                    <button class="action-btn px-8 py-3 bg-brand-orange text-white font-bold rounded-lg hover:bg-brand-orange/90 transition duration-300">
+                        Submit Your Own Review
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- About Us Section (min-h-screen applied with vertical centering) -->
+        <!-- About Us Section (Full Height) -->
         <section id="about" class="py-16 md:py-24 min-h-screen flex flex-col justify-center">
             <header class="section-header text-center">
                 <h2 class="text-3xl sm:text-4xl font-extrabold uppercase">
@@ -277,7 +334,7 @@
             </div>
         </section>
 
-        <!-- Contact Us Section (min-h-screen applied with vertical centering) -->
+        <!-- Contact Us Section (Full Height) -->
         <section id="contact" class="py-16 md:py-24 bg-gray-50 min-h-screen flex flex-col justify-center">
             <header class="section-header text-center">
                 <h2 class="text-3xl sm:text-4xl font-extrabold uppercase">
@@ -287,28 +344,60 @@
 
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl">
-                    <form onsubmit="event.preventDefault(); console.log('Form Submitted'); alert('Thank you for your message! We will get back to you soon.');" class="space-y-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Contact Form -->
                         <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                            <input type="text" id="name" name="name" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-brand-green focus:border-brand-green">
+                            <h3 class="text-2xl font-bold mb-4 text-brand-green">Send us a Message</h3>
+                            <form id="contact-form" onsubmit="event.preventDefault(); handleContactSubmit()" class="space-y-4">
+                                <div>
+                                    <input type="text" id="name" name="name" placeholder="Your Name" required class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-brand-green focus:border-brand-green">
+                                </div>
+                                <div>
+                                    <input type="email" id="email" name="email" placeholder="Your Email" required class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-brand-green focus:border-brand-green">
+                                </div>
+                                <div>
+                                    <textarea id="message" name="message" rows="4" placeholder="Your Message" required class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-brand-green focus:border-brand-green"></textarea>
+                                </div>
+                                <button type="submit" class="w-full px-4 py-3 bg-brand-green text-white font-bold rounded-lg hover:bg-brand-green/90 transition duration-300 shadow-md">
+                                    Send Message
+                                </button>
+                            </form>
                         </div>
+                        
+                        <!-- Newsletter Signup -->
                         <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                            <input type="email" id="email" name="email" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-brand-green focus:border-brand-green">
+                            <h3 class="text-2xl font-bold mb-4 text-brand-orange">Join the Guilt-Free Club</h3>
+                            <p class="text-gray-700 mb-4">Sign up for our newsletter to get exclusive deals, new product announcements, and healthy tips!</p>
+                            <form id="newsletter-form" onsubmit="event.preventDefault(); handleNewsletterSignup()" class="space-y-4">
+                                <div>
+                                    <input type="email" id="newsletter-email" name="email" placeholder="Enter your email" required class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-brand-orange focus:border-brand-orange">
+                                </div>
+                                <button type="submit" class="w-full px-4 py-3 bg-brand-orange text-white font-bold rounded-lg hover:bg-brand-orange/90 transition duration-300 shadow-md">
+                                    Subscribe Now!
+                                </button>
+                            </form>
+                            
+                            <!-- Social Media Integration -->
+                            <h3 class="text-xl font-bold mt-8 mb-3 text-dark-text">Follow Us</h3>
+                            <div class="flex space-x-4 justify-center md:justify-start">
+                                <a href="#" class="text-gray-500 hover:text-pink-600 transition duration-300" title="Instagram"><i data-lucide="instagram" class="w-7 h-7"></i></a>
+                                <a href="#" class="text-gray-500 hover:text-blue-700 transition duration-300" title="LinkedIn"><i data-lucide="linkedin" class="w-7 h-7"></i></a>
+                                <a href="#" class="text-gray-500 hover:text-red-600 transition duration-300" title="YouTube"><i data-lucide="youtube" class="w-7 h-7"></i></a>
+                                <a href="#" class="text-gray-500 hover:text-brand-green transition duration-300" title="Twitter/X"><i data-lucide="twitter" class="w-7 h-7"></i></a>
+                            </div>
                         </div>
-                        <div>
-                            <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
-                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-brand-green focus:border-brand-green"></textarea>
-                        </div>
-                        <button type="submit" class="w-full px-4 py-3 bg-brand-green text-white font-bold rounded-lg hover:bg-brand-green/90 transition duration-300 shadow-md">
-                            Send Message
-                        </button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </section>
 
     </main>
+
+    <!-- Floating Chat Support Button -->
+    <button id="chat-support" onclick="alert('Chat Support: A simulated chat window would open here. We are happy to help you!');"
+            class="action-btn p-4 bg-brand-orange text-white rounded-full shadow-2xl hover:bg-brand-orange/90 transition transform hover:scale-105">
+        <i data-lucide="message-square" class="w-7 h-7"></i>
+    </button>
 
     <!-- Footer -->
     <footer class="bg-dark-text text-white py-8 mt-auto">
@@ -322,21 +411,311 @@
                 <a href="#" class="text-gray-400 hover:text-brand-green transition duration-300">Careers</a>
             </div>
         </div>
+        
         <script>
-            // Set the current year dynamically in the footer
-            document.getElementById('current-year').textContent = new Date().getFullYear();
-            // Initialize Lucide icons
-            lucide.createIcons();
+            // --- E-COMMERCE DATA & STATE MANAGEMENT ---
+            
+            const products = [
+                { id: 1, name: "Ragi Chocolate Cookies", price: 199, desc: "Crunchy, delicious cookies made with nutrient-rich Ragi and real cocoa.", image: "https://placehold.co/400x300/e0f2f1/065f46?text=Ragi+Cookies", tags: ["sweet", "cocoa", "gluten-free"] },
+                { id: 2, name: "Spicy Jowar Puffs", price: 120, desc: "Air-popped Jowar (Sorghum) snacks seasoned with natural spices. High in fiber.", image: "https://placehold.co/400x300/f0f9ff/0c4a6e?text=Jowar+Puffs", tags: ["spicy", "gluten-free", "vegan"] },
+                { id: 3, name: "Bajra Trail Mix", price: 249, desc: "A blend of crispy Bajra (Pearl Millet) puffs, nuts, and seeds. Energy-boosting.", image: "https://placehold.co/400x300/fef3c7/92400e?text=Bajra+Mix", tags: ["nutty", "gluten-free"] },
+                { id: 4, name: "Ancient Grain Energy Bar", price: 350, desc: "Made with Quinoa and natural fruit pulp. Ideal pre/post-workout snack.", image: "https://placehold.co/400x300/ffe4e6/be123c?text=Quinoa+Bar", tags: ["sweet", "vegan", "gluten-free"] },
+                { id: 5, name: "Multi-Millet Instant Noodles", price: 150, desc: "Quick and healthy alternative to refined flour noodles. Rich in protein.", image: "https://placehold.co/400x300/dbeafe/1e40af?text=Multi-Millet+Noodles", tags: ["savory", "vegan"] },
+                { id: 6, name: "Kodo Millet Muesli", price: 299, desc: "Breakfast option with Kodo Millet flakes, dried fruits, and seeds. No artificial flavors.", image: "https://placehold.co/400x300/fee2e2/991b1b?text=Kodo+Muesli", tags: ["sweet", "nutty", "gluten-free"] }
+            ];
+
+            let cart = [];
+            let wishlist = [];
+
+            // Helper to get tag style class
+            function getTagClass(tag) {
+                switch (tag) {
+                    case 'gluten-free': return 'tag-gluten-free';
+                    case 'vegan': return 'tag-vegan';
+                    case 'sweet': case 'cocoa': return 'tag-sweet';
+                    case 'spicy': return 'tag-spicy';
+                    default: return 'bg-gray-200 text-gray-700';
+                }
+            }
+
+            // --- PRODUCT RENDERING AND FILTERING ---
+
+            function renderProducts(filteredProducts = products) {
+                const grid = document.getElementById('product-grid');
+                grid.innerHTML = ''; // Clear previous products
+
+                if (filteredProducts.length === 0) {
+                    grid.innerHTML = '<p class="text-center col-span-full text-xl text-gray-500 p-10">No products found matching your criteria.</p>';
+                    return;
+                }
+
+                filteredProducts.forEach(product => {
+                    const isInWishlist = wishlist.some(item => item.id === product.id);
+                    
+                    // Create HTML for dietary/flavor tags
+                    const tagHtml = product.tags.map(tag => 
+                        `<span class="dietary-tag ${getTagClass(tag)}">#${tag.replace('-', ' ')}</span>`
+                    ).join('');
+
+                    grid.innerHTML += `
+                        <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 text-center flex flex-col items-center hover:shadow-2xl transition duration-300">
+                            <img src="${product.image}" alt="${product.name}" class="rounded-lg mb-4 w-full h-auto object-cover">
+                            <h3 class="text-2xl font-bold mb-2 text-dark-text">${product.name}</h3>
+                            <div class="flex flex-wrap justify-center mb-3">${tagHtml}</div>
+                            <p class="text-gray-600 mb-4 flex-grow">${product.desc}</p>
+                            
+                            <div class="flex justify-between items-center w-full mt-auto pt-2">
+                                <span class="text-3xl font-extrabold text-brand-green">₹${product.price}</span>
+                                <div class="flex space-x-2">
+                                    <button onclick="addToWishlist(${product.id})" class="action-btn p-3 rounded-full ${isInWishlist ? 'bg-pink-500 text-white' : 'bg-gray-200 text-gray-500'} hover:bg-pink-500 hover:text-white transition">
+                                        <i data-lucide="heart" class="w-5 h-5"></i>
+                                    </button>
+                                    <button onclick="addToCart(${product.id})" class="action-btn px-4 py-2 bg-brand-orange text-white font-bold rounded-lg shadow-md hover:bg-brand-orange/90">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                lucide.createIcons(); // Re-render icons for new content
+            }
+
+            function applyFilters() {
+                const search = document.getElementById('search-input').value.toLowerCase();
+                const flavor = document.getElementById('flavor-filter').value;
+                const dietary = document.getElementById('dietary-filter').value;
+
+                const filtered = products.filter(product => {
+                    // Search filter
+                    const matchesSearch = product.name.toLowerCase().includes(search);
+
+                    // Flavor filter
+                    const matchesFlavor = flavor === 'all' || product.tags.includes(flavor);
+
+                    // Dietary filter
+                    const matchesDietary = dietary === 'all' || product.tags.includes(dietary);
+
+                    return matchesSearch && matchesFlavor && matchesDietary;
+                });
+
+                renderProducts(filtered);
+            }
+
+            // --- CART & WISHLIST LOGIC ---
+
+            function updateCartCount() {
+                document.getElementById('cart-count').textContent = `(${cart.length})`;
+            }
+
+            function calculateCartTotal() {
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                document.getElementById('cart-total').textContent = `₹${total}`;
+                return total;
+            }
+
+            function renderCart() {
+                const container = document.getElementById('cart-items-container');
+                container.innerHTML = '';
+                
+                if (cart.length === 0) {
+                    container.innerHTML = `
+                        <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200 text-center">
+                            <i data-lucide="package-open" class="w-16 h-16 mx-auto text-brand-green mb-4"></i>
+                            <h3 class="text-2xl font-bold mb-3 text-dark-text">Your Cart is Empty!</h3>
+                            <p class="text-gray-600 mb-6">
+                                Start adding some delicious, guilt-free millet snacks.
+                            </p>
+                        </div>
+                    `;
+                } else {
+                    cart.forEach(item => {
+                        container.innerHTML += `
+                            <div class="flex items-center bg-white p-4 rounded-xl shadow-md justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <img src="${item.image}" class="w-16 h-16 rounded-lg object-cover hidden sm:block">
+                                    <div>
+                                        <h4 class="font-bold text-lg text-dark-text">${item.name}</h4>
+                                        <p class="text-brand-orange font-semibold">₹${item.price}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <!-- Simple Quantity controls placeholder -->
+                                    <span class="text-lg font-medium">Qty: ${item.quantity}</span>
+                                    <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-100 transition">
+                                        <i data-lucide="trash-2" class="w-5 h-5"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+
+                calculateCartTotal();
+                updateCartCount();
+                lucide.createIcons();
+            }
+
+            function renderWishlist() {
+                const container = document.getElementById('wishlist-items-container');
+                const emptyMessage = document.getElementById('wishlist-empty-message');
+                container.innerHTML = '';
+
+                if (wishlist.length === 0) {
+                    container.classList.add('hidden');
+                    emptyMessage.classList.remove('hidden');
+                    return;
+                }
+
+                container.classList.remove('hidden');
+                emptyMessage.classList.add('hidden');
+                
+                wishlist.forEach(item => {
+                    container.innerHTML += `
+                        <div class="bg-white p-4 rounded-xl shadow-md flex items-center justify-between space-x-4 border border-pink-100">
+                            <div class="flex items-center space-x-3">
+                                <img src="${item.image}" class="w-16 h-16 rounded-lg object-cover hidden sm:block">
+                                <div>
+                                    <h4 class="font-bold text-dark-text">${item.name}</h4>
+                                    <p class="text-brand-green font-semibold">₹${item.price}</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="addToCart(${item.id}); removeFromWishlist(${item.id})" class="action-btn px-3 py-2 bg-brand-orange text-white text-sm font-bold rounded-lg hover:bg-brand-orange/90">
+                                    Add to Cart
+                                </button>
+                                <button onclick="removeFromWishlist(${item.id})" class="text-gray-500 hover:text-red-500 p-2 rounded-full hover:bg-red-100 transition">
+                                    <i data-lucide="x" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                lucide.createIcons();
+            }
+
+            function addToCart(productId) {
+                const product = products.find(p => p.id === productId);
+                const existingItem = cart.find(item => item.id === productId);
+
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ ...product, quantity: 1 });
+                }
+
+                renderCart();
+                alert(`${product.name} added to cart!`);
+            }
+
+            function removeFromCart(productId) {
+                cart = cart.filter(item => item.id !== productId);
+                renderCart();
+                alert('Item removed from cart.');
+            }
+
+            function addToWishlist(productId) {
+                const product = products.find(p => p.id === productId);
+                const existingItem = wishlist.find(item => item.id === productId);
+
+                if (!existingItem) {
+                    wishlist.push(product);
+                    alert(`${product.name} saved to Wishlist!`);
+                } else {
+                    removeFromWishlist(productId);
+                    return; // Exit as alert is handled in remove function
+                }
+                
+                renderProducts(); // Re-render to update heart icon
+                renderWishlist();
+            }
+
+            function removeFromWishlist(productId) {
+                wishlist = wishlist.filter(item => item.id !== productId);
+                alert('Item removed from Wishlist.');
+                renderProducts(); // Re-render to update heart icon
+                renderWishlist();
+            }
+
+            function switchTab(tab) {
+                const cartContent = document.getElementById('cart-content');
+                const wishlistContent = document.getElementById('wishlist-content');
+                const cartBtn = document.getElementById('cart-tab-btn');
+                const wishlistBtn = document.getElementById('wishlist-tab-btn');
+
+                if (tab === 'cart') {
+                    cartContent.classList.remove('hidden');
+                    wishlistContent.classList.add('hidden');
+                    cartBtn.classList.add('border-brand-orange', 'text-brand-orange');
+                    wishlistBtn.classList.remove('border-brand-orange', 'text-brand-orange');
+                    wishlistBtn.classList.add('border-transparent', 'text-gray-500');
+                    renderCart();
+                } else {
+                    cartContent.classList.add('hidden');
+                    wishlistContent.classList.remove('hidden');
+                    wishlistBtn.classList.add('border-brand-orange', 'text-brand-orange');
+                    cartBtn.classList.remove('border-brand-orange', 'text-brand-orange');
+                    cartBtn.classList.add('border-transparent', 'text-gray-500');
+                    renderWishlist();
+                }
+            }
+
+            function showWishlistTab() {
+                // Function linked to the Wishlist icon in the header
+                switchTab('wishlist');
+            }
+
+            function checkoutHandler() {
+                const total = calculateCartTotal();
+                if (total > 0) {
+                    // Placeholder for Payment Gateway Integration
+                    alert(`Initiating secure checkout for total amount: ₹${total}. (This is a simulation of the Payment Gateway integration).`);
+                    // Simulate clearing cart after checkout
+                    cart = [];
+                    renderCart();
+                } else {
+                    alert('Your cart is empty. Please add items before checking out.');
+                }
+            }
+
+            // --- FORM HANDLERS ---
+            function handleContactSubmit() {
+                const form = document.getElementById('contact-form');
+                // In a real app, this data would be sent to a server.
+                alert('Thank you for your message! We will get back to you soon.');
+                form.reset();
+            }
+
+            function handleNewsletterSignup() {
+                const email = document.getElementById('newsletter-email').value;
+                // In a real app, this email would be added to a mailing list service.
+                alert(`Thank you for subscribing! Your email (${email}) has been added to our newsletter list.`);
+                document.getElementById('newsletter-form').reset();
+            }
+
+            // --- INITIALIZATION ---
+            window.onload = function () {
+                // Set the current year dynamically in the footer
+                document.getElementById('current-year').textContent = new Date().getFullYear();
+                
+                // Initialize Lucide icons
+                lucide.createIcons();
+                
+                // Render products and cart initially
+                renderProducts();
+                renderCart();
+            };
             
             // Custom alert replacement function (since alert() is forbidden)
             function alert(message) {
                 const modal = document.createElement('div');
                 modal.className = 'fixed inset-0 bg-gray-900 bg-opacity-75 z-50 flex items-center justify-center';
                 modal.innerHTML = `
-                    <div class="bg-white p-6 rounded-xl shadow-2xl max-w-sm mx-4 text-center">
-                        <h4 class="text-xl font-bold mb-4 text-brand-green">Notification</h4>
+                    <div class="bg-white p-6 rounded-xl shadow-2xl max-w-sm mx-4 text-center transform transition-all duration-300 scale-100">
+                        <h4 class="text-xl font-bold mb-4 text-brand-green">HBB Notification</h4>
                         <p class="text-gray-700 mb-6">${message}</p>
-                        <button onclick="document.body.removeChild(this.parentNode.parentNode)" class="px-6 py-2 bg-brand-orange text-white rounded-lg hover:bg-brand-orange/90 transition">Close</button>
+                        <button onclick="document.body.removeChild(this.parentNode.parentNode)" class="action-btn px-6 py-2 bg-brand-orange text-white rounded-lg hover:bg-brand-orange/90 transition">Close</button>
                     </div>
                 `;
                 document.body.appendChild(modal);
